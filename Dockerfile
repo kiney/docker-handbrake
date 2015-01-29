@@ -2,6 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER Marvin Winkler <marvambass@gmail.com>
 
 ENV DISPLAY :0
+ENV LANG C.UTF-8
 
 # make sure the package repository is up to date
 RUN apt-get update && apt-get install -y \
