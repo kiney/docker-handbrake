@@ -11,14 +11,14 @@ xhost +
 docker rm -f handbrake
 
 docker run \
--d \
+-t --rm \
 --privileged \
 -v $XSOCK:$XSOCK \
 -v /etc/localtime:/etc/localtime:ro \
 -v /dev/sr0:/dev/sr0 \
 -v /dev/cdrom:/dev/cdrom \
 -v $RIPS:/rips \
---name handbrake marvambass/handbrake
+--name handbrake marvambass/handbrake &
 
 sleep 1
 # enable xserver access control again
