@@ -5,21 +5,16 @@ RIPS="$PWD/rips"
 
 mkdir -p "$RIPS" &> /dev/null
 
-# disable xserver access control
-xhost +
+XAUTH=/tmp/.docker_handbrake.xauth
+xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
 docker rm -f handbrake
 
 docker run \
 -t --rm \
---privileged \
+-e XAUTHORITY=$XAUTH \
 -v $XSOCK:$XSOCK \
+-v $XAUTH:$XAUTH \
 -v /etc/localtime:/etc/localtime:ro \
--v /dev/sr0:/dev/sr0 \
--v /dev/cdrom:/dev/cdrom \
 -v $RIPS:/rips \
---name handbrake marvambass/handbrake &
-
-sleep 1
-# enable xserver access control again
-xhost -
+--name handbrake handbrake &
