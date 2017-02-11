@@ -60,9 +60,8 @@ RUN mkdir build \
     && cd HandBrake \
     && ./configure --launch-jobs=$(nproc) --launch \
     && cd build \
-    && make install
-
-RUN rm -Rf /build
+    && make install \
+    && rm -Rf /build
 
 RUN mkdir /rips
 
