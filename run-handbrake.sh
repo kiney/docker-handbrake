@@ -13,12 +13,17 @@ xhost +
 #-v $XAUTH:$XAUTH \
 #-e XAUTHORITY=$XAUTH \
 
+# TODO
+# properly fix all the xauth stuff... and why does handbrake connect
+# to X only on the second run?
+
 sudo docker run \
 -ti --rm \
 -e DISPLAY=$DISPLAY \
 -v $XSOCK:$XSOCK \
 -v $RIPS:/rips \
+-v /media/disk/share:/in:ro \
 --name handbrake handbrake bash -c "handbrake || handbrake"
 
-#sleep 10
-#xhost -
+sleep 2
+xhost -
