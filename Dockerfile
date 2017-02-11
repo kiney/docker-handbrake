@@ -66,6 +66,6 @@ RUN rm -Rf /build
 
 RUN mkdir /rips
 
-USER handbrake
+#USER handbrake
 
 CMD handbrake
