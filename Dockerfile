@@ -4,6 +4,9 @@ MAINTAINER Jannik Winkel <jannik dot winkel  kiney.de>
 ENV DISPLAY :0
 ENV LANG C.UTF-8
 
+RUN groupadd -g 1000 handbrake
+RUN useradd -u 1000 -g 1000 handbrake
+
 # make sure the package repository is up to date
 RUN apt-get update; apt-get install -y \
     wget \
@@ -59,7 +62,10 @@ RUN mkdir build \
     && cd build \
     && make install
 
+RUN rm -Rf /build
+
 RUN mkdir /rips
 
-# Autostart bash and the app (might not be the best way, but it does the trick)
-CMD chmod 777 -R /rips; handbrake; chmod 777 -R /rips
+USER handbrake
+
+CMD handbrake
